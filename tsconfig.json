@@ -1,0 +1,45 @@
+/*
+TSconfig modificado para ser compatível com Node versão 22. De acordo com as configurações recomendadas.
+
+A causa do erro pelo que entendi era que o node tentava gerar em ESM ("type": "module" no package.json + tsconfig.json com "module":"es2022") e o prisma em CJS ("moduleFormat":"cjs").
+
+Deixei tudo commonJs para evitar os erros. Não achei respostas no StackOverflow porem com o Copilot cheguei numa solução para deixar o ESM rodando sem erros (virei vibe coder? kkkkkkkk) está tudo funcionando com TS
+*/
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "nodenext", // converte de TS para JS automaticamente em CJS
+    "moduleResolution": "node16",
+    "lib": [
+      "es2024"
+    ],
+    "strict": true,
+    "esModuleInterop": true,
+    "isolatedModules": false,
+    "declaration": false,
+    "resolveJsonModule": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "strictPropertyInitialization": false,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "paths": {
+      "@src/*": [
+        "src/*"
+      ]
+    },
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "noFallthroughCasesInSwitch": false
+  },
+  "include": [
+    "src/**/*",
+    "test/**/*"
+  ],
+ "exclude": ["node_modules", "dist"]
+}

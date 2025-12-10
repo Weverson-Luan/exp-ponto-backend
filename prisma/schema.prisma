@@ -1,0 +1,188 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../generated/prisma"
+  moduleFormat = "cjs" 
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum MarkingType {
+  input
+  output_interval
+  return_interval
+  output
+}
+
+enum MarkingOrigin {
+  mobile
+  web
+  qr
+  admin
+}
+
+enum RolesName {
+  admin // administrador
+  supervisor_ti // líder ti
+  supervisor_rh // lider rh
+  official // funcionário
+}
+
+//  Tabela que armazena os roles(regras) do sistema
+model Roles {
+  id         Int      @id @default(autoincrement())
+  ativo      Boolean  @default(true)
+  name       RolesName   @unique 
+  description String?
+  create_at  DateTime @default(now())
+  update_at  DateTime @updatedAt
+
+  users      Users[]   @relation("UserRole")
+
+  @@map("roles")
+}
+
+
+// Tabela que armazena os usuários do sistema
+model Users {
+  id         Int      @id @default(autoincrement())
+
+  role_id    Int?     // ID da role(regra) que o usuário possui
+  company_id Int      // ID da company(empresa) que o usuário possui
+
+  ativo      Boolean  @default(true)
+  name       String
+  email      String   @unique
+  password   String?
+  birth_date DateTime? // data de nascimento (2025-12-10 08:01:01)
+  phone      String?  @unique // telefone do usuário (31998887777)
+  document   String   @unique // documento de identificação da usuário(usuário)
+  rg         String?  // rg do usuário
+  naturalness String? // naturalidade do usuário (brasileiro, estrangeiro, outro)
+  father_name String? // nome do pai
+  mother_name String? // nome da mãe
+  matriculation String? // numero matricula exe:3667
+
+  admission_date DateTime? // data de admissão (2025-12-10 08:01:01)
+  dismissal_date DateTime? //data de admissão (2025-12-10 08:01:01)
+
+  create_at  DateTime @default(now())
+  update_at  DateTime @updatedAt
+
+  // relations
+  roles     Roles?     @relation("UserRole", fields: [role_id], references: [id]) // relacionamento com a role(regra)
+  companys    Companies   @relation(fields: [company_id], references: [id]) // relacionamento com a company(empresa)
+  pointMarks PointMarkings[]
+  journeys   Journeys[]
+  devices    AuthorizedDevices[]
+
+  @@map("users")
+}
+
+
+// Tabela que armazena as companies(empresas) do sistema
+model Companies {
+  id            Int      @id @default(autoincrement())
+  company_name  String
+  company_name_fatasia String? // nome da company(empresa) em fatiasia
+  document String  @unique // documento de identificação da company(empresa)
+  lat          Float? // latitude da possição da company(empresa)
+  lgn          Float? // longitude da possição da company(empresa)
+
+  create_at     DateTime @default(now())
+  update_at     DateTime @updatedAt
+
+  users         Users[]
+  rules         CompanyRules[]
+
+  @@map("companies")
+}
+
+
+// Tabela que armazena as regras de companies(empresas) do sistema
+model CompanyRules {
+  id               Int      @id @default(autoincrement())
+ 
+  company_id       Int @unique() // ID da company(empresa) que o usuário possui
+
+  daily_workload    Int // 8h em segundos
+  late_tolerance    Int // 10min em segundos
+  start_time        DateTime // 2024-01-01T08:00:00
+  end_time          DateTime // 2024-01-01T17:00:00
+  minimum_interval  Int // 1h em segundos
+  max_extra_per_day Int? // 2h em segundos
+  rounding_method   String  @default("none") // none | 5min | 10min
+  break_required    Boolean @default(true)
+
+  create_at         DateTime @default(now())
+  update_at         DateTime @updatedAt
+
+  company           Companies   @relation(fields: [company_id], references: [id])
+
+  @@map("company_rules")
+}
+
+// Tabela que armazena os pontos de marcação do sistema
+model PointMarkings {
+  id           Int      @id @default(autoincrement())
+
+  official_id  Int?     // ID do usuário que criou o ponto de marcação
+
+  type         MarkingType // tipo do ponto de marcação (input, output_interval, return_interval, output)
+  data_hours   DateTime  // data e hora do ponto de marcação
+  lat          Float? // latitude do ponto de marcação
+  lng          Float? // longitude do ponto de marcação
+  origin       MarkingOrigin // origem do ponto de marcação (mobile, web, qr, admin)
+
+  create_at    DateTime @default(now())
+  update_at    DateTime @updatedAt
+
+  user         Users?    @relation(fields: [official_id], references: [id]) // relacionamento com o usuário que criou o ponto de marcação
+
+  @@index([official_id])
+  @@index([data_hours])
+
+  @@map("point_markings")
+}
+
+
+// Tabela que armazena os pontos de marcação do sistema (jornada)
+model Journeys {
+  id            Int      @id @default(autoincrement())
+
+  official_id   Int? // ID do usuário que criou o ponto de marcação
+
+  entry_time     DateTime? // data e hora de entrada da jornada
+  departure_time DateTime? // data e hora de saída da jornada
+  total_hours    Float     @default(0) // horas total da jornada
+  absences       Int       @default(0) // total de faltas da jornada
+  extras         Float? // horas extras da jornada
+
+  create_at      DateTime  @default(now())
+  update_at      DateTime  @updatedAt
+
+  user           Users?     @relation(fields: [official_id], references: [id])
+
+  @@index([official_id]) // usado para buscar os pontos de marcação de um usuário
+  @@map("journeys")
+}
+
+
+// Tabele que armazena os dispositivos autorizados
+model AuthorizedDevices {
+  id             Int      @id @default(autoincrement())
+
+  official_id    Int? // ID do funcionario autorizado a usar o dispositivo
+
+  device_id      String // ID do dispositivo
+  name           String // nome do dispositivo
+  authorized_in  DateTime // data e hora em que o dispositivo foi autorizado
+
+  create_at      DateTime @default(now())
+  update_at      DateTime @updatedAt
+
+  user           Users?     @relation(fields: [official_id], references: [id])
+
+  @@map("authorized_devices")
+}
