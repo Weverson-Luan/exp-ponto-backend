@@ -1,4 +1,4 @@
-# ExpPonto
+# 🚏 ExpPonto
 
 API backend completa para gestão corporativa de ponto e jornadas de trabalho, permitindo registrar entradas, saídas, intervalos e eventos de forma segura, auditável e conforme regras definidas por cada empresa.
 Desenvolvida em Node.js + NestJS, com Prisma ORM e PostgreSQL, a plataforma oferece autenticação segura, controle de dispositivos autorizados, cálculo automático de jornadas, gerenciamento de colaboradores e regras personalizadas por CNPJ.
