@@ -10,6 +10,7 @@ import {
   Length,
   IsInt,
   IsDateString,
+  Matches,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
@@ -87,7 +88,6 @@ export class CreateUserDto {
   dismissal_date?: string;
 
   @ApiPropertyOptional({ example: 1 })
-  @IsOptional()
   @IsInt()
   role_id?: number;
 

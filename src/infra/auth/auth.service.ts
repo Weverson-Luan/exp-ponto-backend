@@ -6,22 +6,19 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 // database
-// import { PrismaService } from '../database/prisma.service';
-
-// shared / utils
-// import { BcryptHasher } from '@src@srccore/shared/utils/cryptograpy';
-import { SignInDTO } from '@src/core/shared/dtos/auth/auth.dtos';
-import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
 import { PrismaService } from '../database/prisma.service';
 
-// shared / dtos
-// import { SignInDTO } from '@src@srccore/shared/dtos/auth/auth.dtos';
+// shared / utils
+import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
+
+// dtos / auth
+import { SignInDTO } from '@src/core/shared/dtos/auth/auth.dtos';
 
 /**
- * Sempre que criar uma classe com o Injectable temos que informa-la
- * no module (providers)
+ * Sempre que criar uma classe com Injectable,
+ * ela deve ser registrada no module (providers)
  */
-Injectable();
+@Injectable()
 export class AuthService {
   constructor(
     private prismaService: PrismaService,
