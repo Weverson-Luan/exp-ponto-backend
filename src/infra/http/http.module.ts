@@ -32,6 +32,20 @@ import { GetOneUsersService } from '@src/domain/use-cases/users/get-one-users.se
 import { UpdateUsersService } from '@src/domain/use-cases/users/update-users.service';
 import { DeleteOneUsersByService } from '@src/domain/use-cases/users/delete-one-users.service';
 
+// companies / services
+import { CreateCompaniesService } from '@src/domain/use-cases/companies/create-companies.service';
+import { GetAllCompaniesService } from '@src/domain/use-cases/companies/get-all-companies.service';
+import { GetOneCompaniesService } from '@src/domain/use-cases/companies/get-one-companies.service';
+import { UpdateCompaniesService } from '@src/domain/use-cases/companies/update-companies.service';
+import { DeleteCompaniesService } from '@src/domain/use-cases/companies/delete-companies.service';
+
+// companies / controllers
+import { CreateCompaniesController } from './controllers/companies/create-companies.controller';
+import { GetAllCompaniesController } from './controllers/companies/get-all-companies.controller';
+import { GetOneCompaniesController } from './controllers/companies/get-one-companies.controller';
+import { UpdateCompaniesController } from './controllers/companies/update-companies.controller';
+import { DeleteCompaniesController } from './controllers/companies/delete-companies.controller';
+
 // shared / utils
 import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
 
@@ -50,6 +64,13 @@ import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
     GetOneUsersController,
     UpdateUsersController,
     DeleteOneUsersController,
+
+    // empresas
+    CreateCompaniesController,
+    GetAllCompaniesController,
+    GetOneCompaniesController,
+    UpdateCompaniesController,
+    DeleteCompaniesController,
   ],
   providers: [
     PrismaService,
@@ -68,6 +89,13 @@ import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
     GetOneUsersService,
     UpdateUsersService,
     DeleteOneUsersByService,
+
+    // empresas
+    CreateCompaniesService,
+    GetAllCompaniesService,
+    GetOneCompaniesService,
+    UpdateCompaniesService,
+    DeleteCompaniesService,
   ],
 })
 export class HttpModule {}

@@ -17,7 +17,7 @@ import { UpdateUserDto } from '../../../core/shared/dtos/users/update-roles.dto'
  * Sempre que criar uma classe com o Injectable temos que informa-la
  * no module (providers)
  */
-Injectable();
+@Injectable()
 export class UpdateUsersService {
   constructor(
     private prismaService: PrismaService,
@@ -35,13 +35,26 @@ export class UpdateUsersService {
       throw new NotFoundException(`Usuário com ID ${user_id} não encontrado`);
     }
 
+    delete updateData.admission_date;
+    delete updateData.dismissal_date;
+    delete updateData.birth_date;
+
     if (data.password) {
       updateData.password = await this.bcryptHasher.hash(data.password);
     }
 
     const userUpdated = await this.prismaService.users.update({
       where: { id: user_id },
-      data: updateData,
+      data: {
+        admission_date: data.admission_date
+          ? new Date(data.admission_date)
+          : null,
+
+        dismissal_date: data.dismissal_date
+          ? new Date(data.dismissal_date)
+          : null,
+        ...updateData,
+      },
     });
 
     const { password, ...userWithoutPassword } = userUpdated;
