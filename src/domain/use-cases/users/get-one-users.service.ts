@@ -11,7 +11,7 @@ import { PrismaService } from '../../../infra/database/prisma.service';
  * Sempre que criar uma classe com o Injectable temos que informa-la
  * no module (providers)
  */
-Injectable();
+@Injectable()
 export class GetOneUsersService {
   constructor(private prismaService: PrismaService) {}
 

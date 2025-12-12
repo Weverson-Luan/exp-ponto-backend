@@ -17,7 +17,7 @@ import { CreateUserDto } from '../../../core/shared/dtos/users/create-users.dtos
  * Sempre que criar uma classe com o Injectable temos que informa-la
  * no module (providers)
  */
-Injectable();
+@Injectable()
 export class CreateUserservice {
   constructor(
     private prismaService: PrismaService,
@@ -27,11 +27,14 @@ export class CreateUserservice {
   async create(data: CreateUserDto) {
     const userAlreadyExists = await this.prismaService.users.findFirst({
       where: {
-        OR: [{ email: data.email }],
+        OR: [{ email: data.email }, { phone: data.phone }],
       },
     });
 
     if (userAlreadyExists) {
+      if (userAlreadyExists.phone === data.phone) {
+        throw new ConflictException('Telefone já cadastrado!');
+      }
       if (userAlreadyExists.email === data.email) {
         throw new ConflictException('E-mail já cadastrado!');
       }
@@ -62,8 +65,13 @@ export class CreateUserservice {
         father_name: data.father_name,
         mother_name: data.mother_name,
         matriculation: data.matriculation,
-        admission_date: data.admission_date,
-        dismissal_date: data.dismissal_date,
+        admission_date: data.admission_date
+          ? new Date(data.admission_date)
+          : null,
+
+        dismissal_date: data.dismissal_date
+          ? new Date(data.dismissal_date)
+          : null,
         role_id: Number(data.role_id),
         company_id: Number(data.company_id),
       },
