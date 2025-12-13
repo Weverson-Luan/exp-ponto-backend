@@ -116,6 +116,20 @@ import { GetOneUsersSystemSettingsController } from './controllers/users-system-
 import { UpdateUsersSystemSettingsController } from './controllers/users-system-settings/update-users-system-settings.controller';
 import { DeleteUsersSystemSettingsController } from './controllers/users-system-settings/delete-users-system-settings.controller';
 
+// authorized-devices / services
+import { CreateAuthorizedDevicesService } from '@src/domain/use-cases/authorized-devices/create-authorized-devices.service';
+import { GetAllAuthorizedDevicesService } from '@src/domain/use-cases/authorized-devices/get-all-authorized-devices.service';
+import { GetOneAuthorizedDevicesService } from '@src/domain/use-cases/authorized-devices/get-one-authorized-devices.service';
+import { UpdateAuthorizedDevicesService } from '@src/domain/use-cases/authorized-devices/update-authorized-devices.service';
+import { DeleteAuthorizedDevicesService } from '@src/domain/use-cases/authorized-devices/delete-authorized-devices.service';
+
+// authorized-devices / controllers
+import { CreateAuthorizedDevicesController } from './controllers/authorized-devices/create-authorized-devices.controller';
+import { GetAllAuthorizedDevicesController } from './controllers/authorized-devices/get-all-authorized-devices.controller';
+import { GetOneAuthorizedDevicesController } from './controllers/authorized-devices/get-one-authorized-devices.controller';
+import { UpdateAuthorizedDevicesController } from './controllers/authorized-devices/update-authorized-devices.controller';
+import { DeleteAuthorizedDevicesController } from './controllers/authorized-devices/delete-authorized-devices.controller';
+
 // shared / utils
 import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
 
@@ -176,6 +190,13 @@ import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
     GetOneUsersSystemSettingsController,
     UpdateUsersSystemSettingsController,
     DeleteUsersSystemSettingsController,
+
+    // authorized-devices
+    CreateAuthorizedDevicesController,
+    GetAllAuthorizedDevicesController,
+    GetOneAuthorizedDevicesController,
+    UpdateAuthorizedDevicesController,
+    DeleteAuthorizedDevicesController,
   ],
   providers: [
     PrismaService,
@@ -236,6 +257,13 @@ import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
     GetOneUsersSystemSettingsService,
     UpdateUsersSystemSettingsService,
     DeleteUsersSystemSettingsService,
+
+    // authorized-devices
+    CreateAuthorizedDevicesService,
+    GetAllAuthorizedDevicesService,
+    GetOneAuthorizedDevicesService,
+    UpdateAuthorizedDevicesService,
+    DeleteAuthorizedDevicesService,
   ],
 })
 export class HttpModule {}
