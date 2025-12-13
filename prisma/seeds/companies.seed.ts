@@ -17,7 +17,7 @@ export const seedCompanies = async () => {
     update: {},
     create: {
       company_name: 'Empresa Exemplo',
-      company_name_fatasia: 'Empresa Exemplo LTDA',
+      company_name_fantasia: 'Empresa Exemplo LTDA',
       document: '12345678000199',
       lat: -23.5505,
       lgn: -46.6333,

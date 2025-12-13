@@ -31,7 +31,7 @@ export class CreateCompaniesService {
     const companyCreated = await this.prismaService.companies.create({
       data: {
         company_name: data.company_name,
-        company_name_fatasia: data.company_name_fatasia,
+        company_name_fantasia: data.company_name_fantasia,
         document: data.document,
         lat: data.lat,
         lgn: data.lgn,

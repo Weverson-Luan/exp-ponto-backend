@@ -19,7 +19,7 @@ export class CreateCompanyDto {
   @ApiPropertyOptional({ example: 'Expresso Figueiredo' })
   @IsOptional()
   @IsString()
-  company_name_fatasia?: string;
+  company_name_fantasia?: string;
 
   @ApiProperty({ example: '12345678000199' })
   @IsString()

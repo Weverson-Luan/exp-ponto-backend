@@ -74,6 +74,7 @@ export class CreateUserservice {
           : null,
         role_id: Number(data.role_id),
         company_id: Number(data.company_id),
+        birth_date: new Date(data.birth_date!),
       },
     });
 

@@ -35,8 +35,8 @@ export class GetOneUsersService {
         dismissal_date: true,
         company_id: true,
         role_id: true,
-        create_at: true,
-        update_at: true,
+        created_at: true,
+        updated_at: true,
       },
     });
 

@@ -50,8 +50,8 @@ export const seedRoles = async () => {
         name: role.name,
         description: role.description,
         ativo: role.ativo,
-        create_at: new Date(),
-        update_at: new Date(),
+        created_at: new Date(),
+        updated_at: new Date(),
       },
     });
   }

@@ -35,8 +35,8 @@ model Roles {
   ativo      Boolean  @default(true)
   name       RolesName   @unique 
   description String?
-  create_at  DateTime @default(now())
-  update_at  DateTime @updatedAt
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 
   users      Users[]   @relation("UserRole")
 
@@ -55,7 +55,7 @@ model Users {
   name       String
   email      String   @unique
   password   String?
-  birth_date DateTime? // data de nascimento (2025-12-10 08:01:01)
+  birth_date DateTime // data de nascimento (2025-12-10 08:01:01)
   phone      String?  @unique // telefone do usuário (31998887777)
   document   String   @unique // documento de identificação da usuário(usuário)
   rg         String?  // rg do usuário
@@ -67,8 +67,8 @@ model Users {
   admission_date DateTime? // data de admissão (2025-12-10 08:01:01)
   dismissal_date DateTime? //data de admissão (2025-12-10 08:01:01)
 
-  create_at  DateTime @default(now())
-  update_at  DateTime @updatedAt
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 
   // relations
   roles     Roles?     @relation("UserRole", fields: [role_id], references: [id]) // relacionamento com a role(regra)
@@ -85,13 +85,13 @@ model Users {
 model Companies {
   id            Int      @id @default(autoincrement())
   company_name  String
-  company_name_fatasia String? // nome da company(empresa) em fatiasia
+  company_name_fantasia String? // nome da company(empresa) em fatiasia
   document String  @unique // documento de identificação da company(empresa)
   lat          Float? // latitude da possição da company(empresa)
   lgn          Float? // longitude da possição da company(empresa)
 
-  create_at     DateTime @default(now())
-  update_at     DateTime @updatedAt
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
 
   users         Users[]
   rules         CompanyRules[]
@@ -106,6 +106,7 @@ model CompanyRules {
  
   company_id       Int @unique() // ID da company(empresa) que o usuário possui
 
+  is_active         Boolean @default(true)
   daily_workload    Int // 8h em segundos
   late_tolerance    Int // 10min em segundos
   start_time        DateTime // 2024-01-01T08:00:00
@@ -115,8 +116,8 @@ model CompanyRules {
   rounding_method   String  @default("none") // none | 5min | 10min
   break_required    Boolean @default(true)
 
-  create_at         DateTime @default(now())
-  update_at         DateTime @updatedAt
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
 
   company           Companies   @relation(fields: [company_id], references: [id])
 
@@ -130,18 +131,18 @@ model PointMarkings {
   official_id  Int?     // ID do usuário que criou o ponto de marcação
 
   type         MarkingType // tipo do ponto de marcação (input, output_interval, return_interval, output)
-  data_hours   DateTime  // data e hora do ponto de marcação
+  marked_at   DateTime  // data e hora do ponto de marcação
   lat          Float? // latitude do ponto de marcação
-  lng          Float? // longitude do ponto de marcação
+  lgn          Float? // longitude do ponto de marcação
   origin       MarkingOrigin // origem do ponto de marcação (mobile, web, qr, admin)
 
-  create_at    DateTime @default(now())
-  update_at    DateTime @updatedAt
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
 
   user         Users?    @relation(fields: [official_id], references: [id]) // relacionamento com o usuário que criou o ponto de marcação
 
   @@index([official_id])
-  @@index([data_hours])
+  @@index([marked_at])
 
   @@map("point_markings")
 }
@@ -155,12 +156,13 @@ model Journeys {
 
   entry_time     DateTime? // data e hora de entrada da jornada
   departure_time DateTime? // data e hora de saída da jornada
-  total_hours    Float     @default(0) // horas total da jornada
+  total_hours    Int?     @default(0) // horas total da jornada
   absences       Int       @default(0) // total de faltas da jornada
-  extras         Float? // horas extras da jornada
+  extras         Int? // horas extras da jornada
+  journey_date   DateTime? // garantir 1 jornada por usuário por dia.
 
-  create_at      DateTime  @default(now())
-  update_at      DateTime  @updatedAt
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
 
   user           Users?     @relation(fields: [official_id], references: [id])
 
@@ -179,8 +181,8 @@ model AuthorizedDevices {
   name           String // nome do dispositivo
   authorized_in  DateTime // data e hora em que o dispositivo foi autorizado
 
-  create_at      DateTime @default(now())
-  update_at      DateTime @updatedAt
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
 
   user           Users?     @relation(fields: [official_id], references: [id])
 

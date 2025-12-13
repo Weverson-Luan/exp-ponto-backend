@@ -45,7 +45,7 @@ export class GetAllUsersService {
         skip,
         take: limit,
         orderBy: {
-          create_at: 'desc',
+          created_at: 'desc',
         },
         select: userPublicSelect,
       }),
