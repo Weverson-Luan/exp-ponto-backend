@@ -88,6 +88,20 @@ import { GetOneJourneysController } from './controllers/journeys/get-one-journey
 import { UpdateJourneysController } from './controllers/journeys/update-journeys.controller';
 import { DeleteJourneysController } from './controllers/journeys/delete-journeys.controller';
 
+// requests / services
+import { CreateRequestsService } from '@src/domain/use-cases/requests/create-requests.service';
+import { GetAllRequestsService } from '@src/domain/use-cases/requests/get-all-requests.service';
+import { GetOneRequestsService } from '@src/domain/use-cases/requests/get-one-requests.service';
+import { UpdateRequestsService } from '@src/domain/use-cases/requests/update-requests.service';
+import { DeleteRequestsService } from '@src/domain/use-cases/requests/delete-requests.service';
+
+// requests / controllers
+import { CreateRequestsController } from './controllers/requests/create-requests.controller';
+import { GetAllRequestsController } from './controllers/requests/get-all-requests.controller';
+import { GetOneRequestsController } from './controllers/requests/get-one-requests.controller';
+import { UpdateRequestsController } from './controllers/requests/update-requests.controller';
+import { DeleteRequestsController } from './controllers/requests/delete-requests.controller';
+
 // shared / utils
 import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
 
@@ -134,6 +148,13 @@ import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
     GetOneJourneysController,
     UpdateJourneysController,
     DeleteJourneysController,
+
+    // solicitacoes
+    CreateRequestsController,
+    GetAllRequestsController,
+    GetOneRequestsController,
+    UpdateRequestsController,
+    DeleteRequestsController,
   ],
   providers: [
     PrismaService,
@@ -180,6 +201,13 @@ import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
     GetOneJourneysService,
     UpdateJourneysService,
     DeleteJourneysService,
+
+    // solicitacoes
+    CreateRequestsService,
+    GetAllRequestsService,
+    GetOneRequestsService,
+    UpdateRequestsService,
+    DeleteRequestsService,
   ],
 })
 export class HttpModule {}
