@@ -46,6 +46,20 @@ import { GetOneCompaniesController } from './controllers/companies/get-one-compa
 import { UpdateCompaniesController } from './controllers/companies/update-companies.controller';
 import { DeleteCompaniesController } from './controllers/companies/delete-companies.controller';
 
+// company-rules / services
+import { CreateCompanyRulesService } from '@src/domain/use-cases/company-rules/create-company-rules.service';
+import { GetAllCompanyRulesService } from '@src/domain/use-cases/company-rules/get-all-company-rules.service';
+import { GetOneCompanyRulesService } from '@src/domain/use-cases/company-rules/get-one-company-rules.service';
+import { UpdateCompanyRulesService } from '@src/domain/use-cases/company-rules/update-company-rules.service';
+import { DeleteCompanyRulesService } from '@src/domain/use-cases/company-rules/delete-company-rules.service';
+
+// company-rules / controllers
+import { CreateCompanyRulesController } from './controllers/company-rules/create-company-rules.controller';
+import { GetAllCompanyRulesController } from './controllers/company-rules/get-all-company-rules.controller';
+import { GetOneCompanyRulesController } from './controllers/company-rules/get-one-company-rules.controller';
+import { UpdateCompanyRulesController } from './controllers/company-rules/update-company-rules.controller';
+import { DeleteCompanyRulesController } from './controllers/company-rules/delete-company-rules.controller';
+
 // shared / utils
 import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
 
@@ -71,6 +85,13 @@ import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
     GetOneCompaniesController,
     UpdateCompaniesController,
     DeleteCompaniesController,
+
+    // regras de empresas
+    CreateCompanyRulesController,
+    GetAllCompanyRulesController,
+    GetOneCompanyRulesController,
+    UpdateCompanyRulesController,
+    DeleteCompanyRulesController,
   ],
   providers: [
     PrismaService,
@@ -96,6 +117,13 @@ import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
     GetOneCompaniesService,
     UpdateCompaniesService,
     DeleteCompaniesService,
+
+    // regras de empresas
+    CreateCompanyRulesService,
+    GetAllCompanyRulesService,
+    GetOneCompanyRulesService,
+    UpdateCompanyRulesService,
+    DeleteCompanyRulesService,
   ],
 })
 export class HttpModule {}
