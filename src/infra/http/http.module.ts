@@ -102,6 +102,20 @@ import { GetOneRequestsController } from './controllers/requests/get-one-request
 import { UpdateRequestsController } from './controllers/requests/update-requests.controller';
 import { DeleteRequestsController } from './controllers/requests/delete-requests.controller';
 
+// users-system-settings / services
+import { CreateUsersSystemSettingsService } from '@src/domain/use-cases/users-system-settings/create-users-system-settings.service';
+import { GetAllUsersSystemSettingsService } from '@src/domain/use-cases/users-system-settings/get-all-users-system-settings.service';
+import { GetOneUsersSystemSettingsService } from '@src/domain/use-cases/users-system-settings/get-one-users-system-settings.service';
+import { UpdateUsersSystemSettingsService } from '@src/domain/use-cases/users-system-settings/update-users-system-settings.service';
+import { DeleteUsersSystemSettingsService } from '@src/domain/use-cases/users-system-settings/delete-users-system-settings.service';
+
+// users-system-settings / controllers
+import { CreateUsersSystemSettingsController } from './controllers/users-system-settings/create-users-system-settings.controller';
+import { GetAllUsersSystemSettingsController } from './controllers/users-system-settings/get-all-users-system-settings.controller';
+import { GetOneUsersSystemSettingsController } from './controllers/users-system-settings/get-one-users-system-settings.controller';
+import { UpdateUsersSystemSettingsController } from './controllers/users-system-settings/update-users-system-settings.controller';
+import { DeleteUsersSystemSettingsController } from './controllers/users-system-settings/delete-users-system-settings.controller';
+
 // shared / utils
 import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
 
@@ -155,6 +169,13 @@ import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
     GetOneRequestsController,
     UpdateRequestsController,
     DeleteRequestsController,
+
+    // users-system-settings
+    CreateUsersSystemSettingsController,
+    GetAllUsersSystemSettingsController,
+    GetOneUsersSystemSettingsController,
+    UpdateUsersSystemSettingsController,
+    DeleteUsersSystemSettingsController,
   ],
   providers: [
     PrismaService,
@@ -208,6 +229,13 @@ import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
     GetOneRequestsService,
     UpdateRequestsService,
     DeleteRequestsService,
+
+    // users-system-settings
+    CreateUsersSystemSettingsService,
+    GetAllUsersSystemSettingsService,
+    GetOneUsersSystemSettingsService,
+    UpdateUsersSystemSettingsService,
+    DeleteUsersSystemSettingsService,
   ],
 })
 export class HttpModule {}
