@@ -74,6 +74,20 @@ import { GetOnePointMarkingsController } from './controllers/point-markings/get-
 import { UpdatePointMarkingsController } from './controllers/point-markings/update-point-markings.controller';
 import { DeletePointMarkingsController } from './controllers/point-markings/delete-point-markings.controller';
 
+// journeys / services
+import { CreateJourneysService } from '@src/domain/use-cases/journeys/create-journeys.service';
+import { GetAllJourneysService } from '@src/domain/use-cases/journeys/get-all-journeys.service';
+import { GetOneJourneysService } from '@src/domain/use-cases/journeys/get-one-journeys.service';
+import { UpdateJourneysService } from '@src/domain/use-cases/journeys/update-journeys.service';
+import { DeleteJourneysService } from '@src/domain/use-cases/journeys/delete-journeys.service';
+
+// journeys / controllers
+import { CreateJourneysController } from './controllers/journeys/create-journeys.controller';
+import { GetAllJourneysController } from './controllers/journeys/get-all-journeys.controller';
+import { GetOneJourneysController } from './controllers/journeys/get-one-journeys.controller';
+import { UpdateJourneysController } from './controllers/journeys/update-journeys.controller';
+import { DeleteJourneysController } from './controllers/journeys/delete-journeys.controller';
+
 // shared / utils
 import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
 
@@ -113,6 +127,13 @@ import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
     GetOnePointMarkingsController,
     UpdatePointMarkingsController,
     DeletePointMarkingsController,
+
+    // jornadas
+    CreateJourneysController,
+    GetAllJourneysController,
+    GetOneJourneysController,
+    UpdateJourneysController,
+    DeleteJourneysController,
   ],
   providers: [
     PrismaService,
@@ -152,6 +173,13 @@ import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
     GetOnePointMarkingsService,
     UpdatePointMarkingsService,
     DeletePointMarkingsService,
+
+    // jornadas
+    CreateJourneysService,
+    GetAllJourneysService,
+    GetOneJourneysService,
+    UpdateJourneysService,
+    DeleteJourneysService,
   ],
 })
 export class HttpModule {}
