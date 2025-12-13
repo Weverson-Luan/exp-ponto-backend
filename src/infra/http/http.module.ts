@@ -60,6 +60,20 @@ import { GetOneCompanyRulesController } from './controllers/company-rules/get-on
 import { UpdateCompanyRulesController } from './controllers/company-rules/update-company-rules.controller';
 import { DeleteCompanyRulesController } from './controllers/company-rules/delete-company-rules.controller';
 
+// point-markings / services
+import { CreatePointMarkingsService } from '@src/domain/use-cases/point-markings/create-point-markings.service';
+import { GetAllPointMarkingsService } from '@src/domain/use-cases/point-markings/get-all-point-markings.service';
+import { GetOnePointMarkingsService } from '@src/domain/use-cases/point-markings/get-one-point-markings.service';
+import { UpdatePointMarkingsService } from '@src/domain/use-cases/point-markings/update-point-markings.service';
+import { DeletePointMarkingsService } from '@src/domain/use-cases/point-markings/delete-point-markings.service';
+
+// point-markings / controllers
+import { CreatePointMarkingsController } from './controllers/point-markings/create-point-markings.controller';
+import { GetAllPointMarkingsController } from './controllers/point-markings/get-all-point-markings.controller';
+import { GetOnePointMarkingsController } from './controllers/point-markings/get-one-point-markings.controller';
+import { UpdatePointMarkingsController } from './controllers/point-markings/update-point-markings.controller';
+import { DeletePointMarkingsController } from './controllers/point-markings/delete-point-markings.controller';
+
 // shared / utils
 import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
 
@@ -92,6 +106,13 @@ import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
     GetOneCompanyRulesController,
     UpdateCompanyRulesController,
     DeleteCompanyRulesController,
+
+    // pontos de marcação
+    CreatePointMarkingsController,
+    GetAllPointMarkingsController,
+    GetOnePointMarkingsController,
+    UpdatePointMarkingsController,
+    DeletePointMarkingsController,
   ],
   providers: [
     PrismaService,
@@ -124,6 +145,13 @@ import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
     GetOneCompanyRulesService,
     UpdateCompanyRulesService,
     DeleteCompanyRulesService,
+
+    // pontos de marcação
+    CreatePointMarkingsService,
+    GetAllPointMarkingsService,
+    GetOnePointMarkingsService,
+    UpdatePointMarkingsService,
+    DeletePointMarkingsService,
   ],
 })
 export class HttpModule {}
