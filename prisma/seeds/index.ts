@@ -6,6 +6,8 @@ import { seedUsers } from './users.seed';
 import { seedCompanies } from './companies.seed';
 import { seedCompanyRules } from './rules-companies.seed';
 import { seedDevices } from './devices.seed';
+import { seedUsersSystemSetting } from './users-system-setting';
+import { seedRequests } from './rquests';
 
 async function run() {
   console.log('🚀 Iniciando Seed...');
@@ -15,6 +17,8 @@ async function run() {
   const users = await seedUsers(company.id);
   await seedCompanyRules(company.id);
   await seedDevices(users.funcionario.id);
+  await seedUsersSystemSetting(users.admin.id, company.id);
+  await seedRequests(users.admin.id, company.id);
 
   console.log('🎉 Seed finalizado com sucesso!');
 }

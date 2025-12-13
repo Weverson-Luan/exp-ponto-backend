@@ -29,6 +29,26 @@ enum RolesName {
   official // funcionário
 }
 
+enum JourneyStatus {
+  normal
+  incompleto
+  absences
+  day_off
+}
+
+enum RequestType {
+  ABONO
+  AJUSTE
+  AVULSA
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+
 //  Tabela que armazena os roles(regras) do sistema
 model Roles {
   id         Int      @id @default(autoincrement())
@@ -76,6 +96,8 @@ model Users {
   pointMarks PointMarkings[]
   journeys   Journeys[]
   devices    AuthorizedDevices[]
+  settings   UsersSystemSettings[]
+  requests   Request[]
 
   @@map("users")
 }
@@ -95,6 +117,8 @@ model Companies {
 
   users         Users[]
   rules         CompanyRules[]
+  settings      UsersSystemSettings[]
+  requests      Request[]
 
   @@map("companies")
 }
@@ -115,6 +139,8 @@ model CompanyRules {
   max_extra_per_day Int? // 2h em segundos
   rounding_method   String  @default("none") // none | 5min | 10min
   break_required    Boolean @default(true)
+  valid_from        DateTime // a partir de quando a regra é válida (2024-01-01T08:00:00)
+  valid_to          DateTime? // até quando (NULL = ainda válida)
 
   created_at         DateTime @default(now())
   updated_at         DateTime @updatedAt
@@ -160,6 +186,7 @@ model Journeys {
   absences       Int       @default(0) // total de faltas da jornada
   extras         Int? // horas extras da jornada
   journey_date   DateTime? // garantir 1 jornada por usuário por dia.
+  status         JourneyStatus // tipo de jornada (normal, incompleto, absences, day_off)
 
   created_at      DateTime  @default(now())
   updated_at      DateTime  @updatedAt
@@ -168,6 +195,32 @@ model Journeys {
 
   @@index([official_id]) // usado para buscar os pontos de marcação de um usuário
   @@map("journeys")
+}
+
+model Request {
+  id             Int      @id @default(autoincrement())
+  
+  user_id    Int? // ID do usuário que está configurando
+  company_id Int? // ID da empresa que está configurando
+
+  type           RequestType   // tipo de pedido (ABONO, AJUSTE, AVULSA)
+  reason         String        // motivo do pedido
+  status         RequestStatus // status do pedido (PENDING, APPROVED, REJECTED)
+
+  requestDate    DateTime      // data e hora do pedido
+
+  attachmentUrl  String?       @map("attachment_url") // url do anexo
+
+  createdAt      DateTime      @default(now()) @map("created_at")
+  updatedAt      DateTime      @updatedAt @map("updated_at")
+
+  user           Users?         @relation(fields: [user_id], references: [id])
+  company         Companies?    @relation(fields: [company_id], references: [id])
+
+  @@map("requests")
+  @@index([user_id])
+  @@index([company_id])
+  @@index([status])
 }
 
 
@@ -187,4 +240,29 @@ model AuthorizedDevices {
   user           Users?     @relation(fields: [official_id], references: [id])
 
   @@map("authorized_devices")
+}
+
+
+// Tabela que armazena as configurações do sistema
+model UsersSystemSettings {
+  id             Int      @id @default(autoincrement())
+
+  user_id    Int? // ID do usuário que está configurando
+  company_id Int? // ID da empresa que está configurando
+
+  is_active         Boolean @default(true)
+  biometric_enabled Boolean @default(true)  // Define se o usuário vai usar biometria no registro de ponto.
+  recongnation_enabled Boolean @default(true) // Define se o usuário vai usar reconhecimento favial no registro de ponto.
+  push_enabled      Boolean @default(true)  // Define se o usuário vai usar push no app.
+  time_zone         String  @default("America/Sao_Paulo") // Timezone do usuário
+  last_sync_at      DateTime // Data/hora da última sincronização
+
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+
+  user            Users?    @relation(fields: [user_id], references: [id])
+  company         Companies?    @relation(fields: [company_id], references: [id])
+
+
+  @@map("users_system_settings")
 }
