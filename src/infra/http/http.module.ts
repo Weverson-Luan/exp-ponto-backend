@@ -22,6 +22,7 @@ import { DeleteOneRolesController } from './controllers/roles/delete-roles.contr
 import { CreateUsersController } from '@src/infra/http/controllers/users/create-users.controller';
 import { GetAllUsersController } from './controllers/users/get-all-users.controller';
 import { GetOneUsersController } from './controllers/users/get-one-users.controller';
+import { GetMeController } from './controllers/users/me-users.controller';
 import { UpdateUsersController } from './controllers/users/update-users.controller';
 import { DeleteOneUsersController } from './controllers/users/delete-one-users.controller';
 
@@ -29,6 +30,7 @@ import { DeleteOneUsersController } from './controllers/users/delete-one-users.c
 import { CreateUserservice } from '@src/domain/use-cases/users/create-users.service';
 import { GetAllUsersService } from '@src/domain/use-cases/users/get-all-users.service';
 import { GetOneUsersService } from '@src/domain/use-cases/users/get-one-users.service';
+import { GetMeUsersService } from '@src/domain/use-cases/users/me-users.services';
 import { UpdateUsersService } from '@src/domain/use-cases/users/update-users.service';
 import { DeleteOneUsersByService } from '@src/domain/use-cases/users/delete-one-users.service';
 
@@ -146,6 +148,7 @@ import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
     CreateUsersController,
     GetAllUsersController,
     GetOneUsersController,
+    GetMeController,
     UpdateUsersController,
     DeleteOneUsersController,
 
@@ -213,6 +216,7 @@ import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
     CreateUserservice,
     GetAllUsersService,
     GetOneUsersService,
+    GetMeUsersService,
     UpdateUsersService,
     DeleteOneUsersByService,
 
