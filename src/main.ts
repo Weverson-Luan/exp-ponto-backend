@@ -11,9 +11,11 @@ import { SetupSwagger } from './core/config/swagguer/swagguer';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import type { Env } from './core/config/env';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { join } from 'path';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     cors: {
       origin: '*', // libera acesso de qualquer origem
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
@@ -22,6 +24,10 @@ async function bootstrap() {
   });
 
   const configService = app.get<ConfigService<Env, true>>(ConfigService);
+
+  app.useStaticAssets(join(process.cwd(), 'public'), {
+    prefix: '/public',
+  });
 
   app.useGlobalPipes(
     new ValidationPipe({

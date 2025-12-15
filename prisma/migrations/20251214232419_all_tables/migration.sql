@@ -104,6 +104,22 @@ CREATE TABLE "point_markings" (
 );
 
 -- CreateTable
+CREATE TABLE "point_marking_photos" (
+    "id" SERIAL NOT NULL,
+    "point_marking_id" INTEGER,
+    "official_id" INTEGER,
+    "is_active" BOOLEAN NOT NULL DEFAULT true,
+    "file_url" TEXT NOT NULL,
+    "origin" "MarkingOrigin" NOT NULL,
+    "face_detected" BOOLEAN NOT NULL DEFAULT false,
+    "face_score" DOUBLE PRECISION,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "point_marking_photos_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "journeys" (
     "id" SERIAL NOT NULL,
     "official_id" INTEGER,
@@ -128,7 +144,7 @@ CREATE TABLE "requests" (
     "type" "RequestType" NOT NULL,
     "reason" TEXT NOT NULL,
     "status" "RequestStatus" NOT NULL,
-    "requestDate" TIMESTAMP(3) NOT NULL,
+    "request_date" TIMESTAMP(3) NOT NULL,
     "attachment_url" TEXT,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
@@ -191,6 +207,12 @@ CREATE INDEX "point_markings_official_id_idx" ON "point_markings"("official_id")
 CREATE INDEX "point_markings_marked_at_idx" ON "point_markings"("marked_at");
 
 -- CreateIndex
+CREATE INDEX "point_marking_photos_point_marking_id_idx" ON "point_marking_photos"("point_marking_id");
+
+-- CreateIndex
+CREATE INDEX "point_marking_photos_official_id_idx" ON "point_marking_photos"("official_id");
+
+-- CreateIndex
 CREATE INDEX "journeys_official_id_idx" ON "journeys"("official_id");
 
 -- CreateIndex
@@ -213,6 +235,12 @@ ALTER TABLE "company_rules" ADD CONSTRAINT "company_rules_company_id_fkey" FOREI
 
 -- AddForeignKey
 ALTER TABLE "point_markings" ADD CONSTRAINT "point_markings_official_id_fkey" FOREIGN KEY ("official_id") REFERENCES "users"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "point_marking_photos" ADD CONSTRAINT "point_marking_photos_point_marking_id_fkey" FOREIGN KEY ("point_marking_id") REFERENCES "point_markings"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "point_marking_photos" ADD CONSTRAINT "point_marking_photos_official_id_fkey" FOREIGN KEY ("official_id") REFERENCES "users"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "journeys" ADD CONSTRAINT "journeys_official_id_fkey" FOREIGN KEY ("official_id") REFERENCES "users"("id") ON DELETE SET NULL ON UPDATE CASCADE;

@@ -64,15 +64,21 @@ import { DeleteCompanyRulesController } from './controllers/company-rules/delete
 
 // point-markings / services
 import { CreatePointMarkingsService } from '@src/domain/use-cases/point-markings/create-point-markings.service';
+import { SyncPointMarkingsService } from '@src/domain/use-cases/point-markings/sync-point-markings.service';
 import { GetAllPointMarkingsService } from '@src/domain/use-cases/point-markings/get-all-point-markings.service';
 import { GetOnePointMarkingsService } from '@src/domain/use-cases/point-markings/get-one-point-markings.service';
+import { GetDayPointMarkingsService } from '@src/domain/use-cases/point-markings/get-day-point-markings.service';
+import { GetMirrorPointMarkingsService } from '@src/domain/use-cases/point-markings/get-mirro-point-markings.services';
 import { UpdatePointMarkingsService } from '@src/domain/use-cases/point-markings/update-point-markings.service';
 import { DeletePointMarkingsService } from '@src/domain/use-cases/point-markings/delete-point-markings.service';
 
 // point-markings / controllers
 import { CreatePointMarkingsController } from './controllers/point-markings/create-point-markings.controller';
+import { SyncPointMarkingsController } from './controllers/point-markings/sync-point-markings.controller';
 import { GetAllPointMarkingsController } from './controllers/point-markings/get-all-point-markings.controller';
 import { GetOnePointMarkingsController } from './controllers/point-markings/get-one-point-markings.controller';
+import { GetDayPointMarkingsController } from './controllers/point-markings/get-day-point-markings..controller';
+import { GetMirrorPointMarkingsController } from './controllers/point-markings/get-mirro-point-markings..controller';
 import { UpdatePointMarkingsController } from './controllers/point-markings/update-point-markings.controller';
 import { DeletePointMarkingsController } from './controllers/point-markings/delete-point-markings.controller';
 
@@ -80,6 +86,7 @@ import { DeletePointMarkingsController } from './controllers/point-markings/dele
 import { CreateJourneysService } from '@src/domain/use-cases/journeys/create-journeys.service';
 import { GetAllJourneysService } from '@src/domain/use-cases/journeys/get-all-journeys.service';
 import { GetOneJourneysService } from '@src/domain/use-cases/journeys/get-one-journeys.service';
+import { GetDayJourneysService } from '@src/domain/use-cases/journeys/get-day-journeys.service';
 import { UpdateJourneysService } from '@src/domain/use-cases/journeys/update-journeys.service';
 import { DeleteJourneysService } from '@src/domain/use-cases/journeys/delete-journeys.service';
 
@@ -87,6 +94,7 @@ import { DeleteJourneysService } from '@src/domain/use-cases/journeys/delete-jou
 import { CreateJourneysController } from './controllers/journeys/create-journeys.controller';
 import { GetAllJourneysController } from './controllers/journeys/get-all-journeys.controller';
 import { GetOneJourneysController } from './controllers/journeys/get-one-journeys.controller';
+import { GetDayJourneysController } from './controllers/journeys/get-day-journeys.controller';
 import { UpdateJourneysController } from './controllers/journeys/update-journeys.controller';
 import { DeleteJourneysController } from './controllers/journeys/delete-journeys.controller';
 
@@ -132,6 +140,25 @@ import { GetOneAuthorizedDevicesController } from './controllers/authorized-devi
 import { UpdateAuthorizedDevicesController } from './controllers/authorized-devices/update-authorized-devices.controller';
 import { DeleteAuthorizedDevicesController } from './controllers/authorized-devices/delete-authorized-devices.controller';
 
+// dashboard / services
+import { GetDashboardService } from '@src/domain/use-cases/dashboard/get-all-dashboard.service';
+
+// dashboard / controllers
+import { GetDashboardController } from './controllers/dashboard/get-all-dashboard.controller';
+
+// repositories / point-markings
+import { PointMarkingRepository } from '../repositories/point-markings/point-marking.repository';
+import { PointMarkingMirrorRepository } from '../repositories/point-markings/point-marking-mirro.repository';
+
+// repositories / journeys
+import { JourneysRepository } from '../repositories/journeys/journeys-repository';
+
+// repositories / requests
+import { RequestsRepository } from '../repositories/requests/requests.repository';
+
+// repositories / back-hours
+import { BankHoursRepository } from '../repositories/back-hours/bank-hours.repository';
+
 // shared / utils
 import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
 
@@ -168,8 +195,11 @@ import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
 
     // pontos de marcação
     CreatePointMarkingsController,
+    SyncPointMarkingsController,
     GetAllPointMarkingsController,
     GetOnePointMarkingsController,
+    GetDayPointMarkingsController,
+    GetMirrorPointMarkingsController,
     UpdatePointMarkingsController,
     DeletePointMarkingsController,
 
@@ -177,6 +207,7 @@ import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
     CreateJourneysController,
     GetAllJourneysController,
     GetOneJourneysController,
+    GetDayJourneysController,
     UpdateJourneysController,
     DeleteJourneysController,
 
@@ -200,9 +231,17 @@ import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
     GetOneAuthorizedDevicesController,
     UpdateAuthorizedDevicesController,
     DeleteAuthorizedDevicesController,
+
+    // dashboard
+    GetDashboardController,
   ],
   providers: [
     PrismaService,
+    PointMarkingRepository,
+    PointMarkingMirrorRepository,
+    JourneysRepository,
+    RequestsRepository,
+    BankHoursRepository,
     BcryptHasher,
 
     // regras
@@ -236,8 +275,11 @@ import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
 
     // pontos de marcação
     CreatePointMarkingsService,
+    SyncPointMarkingsService,
     GetAllPointMarkingsService,
     GetOnePointMarkingsService,
+    GetDayPointMarkingsService,
+    GetMirrorPointMarkingsService,
     UpdatePointMarkingsService,
     DeletePointMarkingsService,
 
@@ -245,6 +287,7 @@ import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
     CreateJourneysService,
     GetAllJourneysService,
     GetOneJourneysService,
+    GetDayJourneysService,
     UpdateJourneysService,
     DeleteJourneysService,
 
@@ -268,6 +311,9 @@ import { BcryptHasher } from '@src/core/shared/utils/cryptograpy';
     GetOneAuthorizedDevicesService,
     UpdateAuthorizedDevicesService,
     DeleteAuthorizedDevicesService,
+
+    // dashboard
+    GetDashboardService,
   ],
 })
 export class HttpModule {}

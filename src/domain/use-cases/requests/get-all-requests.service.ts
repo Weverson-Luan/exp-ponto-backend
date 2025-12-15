@@ -24,7 +24,7 @@ export class GetAllRequestsService {
       this.prisma.request.findMany({
         skip,
         take: limit,
-        orderBy: { createdAt: 'desc' },
+        orderBy: { created_at: 'desc' },
       }),
       this.prisma.request.count(),
     ]);

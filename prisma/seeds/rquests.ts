@@ -21,7 +21,7 @@ export const seedRequests = async (user_id: number, company_id: number) => {
       type: 'ABONO',
       reason: 'Teste',
       status: 'PENDING',
-      requestDate: new Date(),
+      request_date: new Date(),
       attachmentUrl:
         'https://t4.ftcdn.net/jpg/05/86/91/55/240_F_586915596_gPqgxPdgdJ4OXjv6GCcDWNxTjKDWZ3JD.jpg',
     },

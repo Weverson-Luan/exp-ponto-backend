@@ -19,22 +19,47 @@ export class GetAllPointMarkingsService {
 
   async findAll({ page = 1, limit = 10 }: PaginationQueryPointMarkingsDto) {
     const skip = (page - 1) * limit;
+    const baseUrl = process.env.APP_URL ?? 'http://localhost:3001';
 
     const [data, total] = await Promise.all([
       this.prisma.pointMarkings.findMany({
         skip,
         take: limit,
         orderBy: { created_at: 'desc' },
+        include: {
+          photos: {
+            where: { is_active: true },
+            orderBy: { created_at: 'desc' },
+            take: 1,
+            select: {
+              file_url: true,
+            },
+          },
+        },
       }),
       this.prisma.pointMarkings.count(),
     ]);
+
+    const items = data.map(({ photos, ...marking }) => {
+      const photo = photos?.[0];
+
+      return {
+        ...marking,
+        photo_url: photo?.file_url
+          ? `${baseUrl}/${photo.file_url}`
+              .replace(/\\/g, '/') // corrige Windows path
+              .replace(/\/+/g, '/') // remove //
+              .replace(':/', '://')
+          : null,
+      };
+    });
 
     return {
       total,
       totalPages: Math.ceil(total / limit),
       page,
       limit,
-      data,
+      data: items,
     };
   }
 }

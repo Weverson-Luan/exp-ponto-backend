@@ -6,7 +6,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export enum JourneyStatusEnum {
   normal = 'normal',
-  incompleto = 'incomplete',
+  incompleto = 'incompleto',
   absences = 'absences',
   day_off = 'day_off',
 }

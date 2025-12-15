@@ -25,7 +25,7 @@ export class CreateRequestsService {
         type: data.type,
         reason: data.reason,
         status: data.status ?? 'PENDING',
-        requestDate: new Date(data.requestDate),
+        request_date: new Date(data.requestDate),
         attachmentUrl: data.attachmentUrl,
       },
     });
